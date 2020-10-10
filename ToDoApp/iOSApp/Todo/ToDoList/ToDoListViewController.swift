@@ -15,6 +15,7 @@ public class ToDoListViewController: NiblessViewController{
     let toDoListViewModelFactory: ToDoListViewModelFactory
     
     let disposeBag: DisposeBag
+
     
     // MARK: - Methods
     init(viewModelFactory: ToDoListViewModelFactory) {
@@ -22,13 +23,23 @@ public class ToDoListViewController: NiblessViewController{
         viewModel = toDoListViewModelFactory.makeToDoListViewModel()
         disposeBag = DisposeBag()
         super.init()
+        
     }
     
     public override func loadView() {
       self.view = ToDoListRootView(viewModel: viewModel)
 //      self.rootView = self.view as? ToDoListRootView
+        
+        
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.parent?.navigationItem.title = "sdfsdf."
+
     }
 }
+
+
 
 protocol ToDoListViewModelFactory {
 

@@ -5,51 +5,43 @@
 //  Created by Voon Wei Liang on 07/10/2020.
 //
 
-import Foundation
-
 import UIKit
+import RxSwift
 
-public class TroopersAppDependencyContainer: ToDoListViewModelFactory{
-    
-    
-    
+public class ToDoAppDependencyContainer {
+
+    // Long-lived dependencies
     let sharedMainViewModel: MainViewModel
-    let sharedToDoDataRepository: ToDoDataRepository
-    
-    
+
     // MARK: - Methods
     public init() {
-        
-        func makeToDoDataRepository() -> ToDoDataRepository {
-          let dataStore = makeToDoDataStore()
-          return MyToDoDataRepository()
-        }
-        
-        func makeToDoDataStore() -> ToDoDataStore {
-          return FileUserSessionDataStore()
-        }
-        
-        func makeMainViewModel() -> MainViewModel {
-          return MainViewModel()
-        }
-        
-        self.sharedMainViewModel = makeMainViewModel()
-        self.sharedToDoDataRepository = makeToDoDataRepository()
-        
-    }
-    
-    public func makeMainViewController() -> MainViewController {
-        let toDoListViewController = makeToDoListViewController()
 
-      return MainViewController(viewModel: sharedMainViewModel,
-                                toDoListViewController: toDoListViewController)
+        func makeMainViewModel() -> MainViewModel {
+            return MainViewModel()
+        }
+
+        self.sharedMainViewModel = makeMainViewModel()
     }
-    
-    func makeToDoListViewController() -> ToDoListViewController {
-        return ToDoListViewController(viewModelFactory: self)
+
+    // Main
+    // Factories needed to create a MainViewController.
+
+    public func makeMainViewController() -> MainViewController {
+        let toDoViewController = makeToDoViewController()
+
+        return MainViewController(viewModel: sharedMainViewModel,
+            toDoViewController: toDoViewController)
     }
-    
-    func makeToDoListViewModel() -> ToDoListViewModel {
-        return ToDoListViewModel()
+
+    // Tabs
+    // Factories needed to create an TabsViewController.
+
+    func makeToDoViewController() -> ToDoViewController {
+        let dependencyContainer = ToDoDependencyContainer(appDependencyContainer: self)
+        return dependencyContainer.makeToDoViewController()
     }
+
+
 }
+
+extension ToDoAppDependencyContainer { }

@@ -8,25 +8,29 @@
 import UIKit
 import RxSwift
 
-public class MainViewController: NiblessNavigationController {
+public class MainViewController: NiblessViewController {
 
-
+    // MARK: - Properties
     // View Model
     let viewModel: MainViewModel
 
     // Child View Controllers
-    let toDoListViewController: ToDoListViewController
+    let toDoViewController: ToDoViewController
 
     // State
     let disposeBag = DisposeBag()
 
     // MARK: - Methods
-    public init(viewModel: MainViewModel,
-        toDoListViewController: ToDoListViewController) {
+    init(viewModel: MainViewModel,
+        toDoViewController: ToDoViewController) {
         self.viewModel = viewModel
-        self.toDoListViewController = toDoListViewController
+
+        self.toDoViewController = toDoViewController
+
+
 
         super.init()
+
     }
 
     func subscribe(to observable: Observable<MainView>) {
@@ -40,26 +44,18 @@ public class MainViewController: NiblessNavigationController {
 
     public func present(_ view: MainView) {
         switch view {
-        case .todoList:
-            presentTodoList()
-        case .addToDo:
-            presentAddToDo()
-        case .showHistory:
-            presentShowHistory()
+        case .toDo:
+            presentToDo()
         }
     }
 
-    public func presentTodoList() {
-        addFullScreen(childViewController: toDoListViewController)
+   
+
+    func presentToDo() {
+
+        addFullScreen(childViewController: self.toDoViewController)
     }
 
-    public func presentAddToDo(){
-        
-    }
-    
-    public func presentShowHistory(){
-        
-    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()

@@ -15,10 +15,32 @@ class ToDoListRootView: NiblessView {
     let disposeBag = DisposeBag()
     var hierarchyNotReady = true
     var bottomLayoutConstraint: NSLayoutConstraint?
+    
+    private var data = [ToDoListItem]()
+    
+    
+//    = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+    
+    let addButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("+", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        
+        button.clipsToBounds = true
+//        button.layer.cornerRadius = 15
+        return button
+    }()
 
     let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.blue
+
+        return view
+    }()
+    
+    let barView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.gray
 
         return view
     }()
@@ -57,9 +79,6 @@ class ToDoListRootView: NiblessView {
         activateConstraints()
         wireController()
         hierarchyNotReady = false
-
-
-
     }
 
 
@@ -72,15 +91,21 @@ class ToDoListRootView: NiblessView {
     func constructHierarchy() {
         addSubview(contentView)
         contentView.addSubview(tableView)
+        barView.addSubview(addButton)
+        contentView.addSubview(barView)
     }
 
     func activateConstraints() {
         activateConstraintsContentView()
         activateConstraintsTableView()
+        activateConstraintsAddButton()
+        activateConstraintsBarView()
     }
 
     func wireController() {
-
+        addButton.addTarget(viewModel,
+                             action: #selector(ToDoListViewModel.addToDo),
+                             for: .touchUpInside)
     }
 
     func configureViewAfterLayout() {
@@ -115,12 +140,40 @@ extension ToDoListRootView {
         let trailing = tableView.trailingAnchor
             .constraint(equalTo: contentView.trailingAnchor)
         let top = tableView.topAnchor
-            .constraint(equalTo: contentView.topAnchor)
+            .constraint(equalTo: barView.bottomAnchor)
         let bottom = tableView.bottomAnchor
             .constraint(equalTo: contentView.bottomAnchor)
 
         NSLayoutConstraint.activate(
             [leading, trailing, top, bottom])
+    }
+    
+    func activateConstraintsBarView() {
+        barView.translatesAutoresizingMaskIntoConstraints = false
+        let leading = barView.leadingAnchor
+            .constraint(equalTo: contentView.leadingAnchor)
+        let trailing = barView.trailingAnchor
+            .constraint(equalTo: contentView.trailingAnchor)
+        let top = barView.topAnchor
+            .constraint(equalTo: contentView.topAnchor)
+        let bottom = barView.bottomAnchor
+            .constraint(equalTo: tableView.topAnchor)
+        let height = barView.heightAnchor
+            .constraint(equalToConstant: 50)
+
+        NSLayoutConstraint.activate(
+            [leading, trailing, top, bottom, height])
+    }
+    
+    func activateConstraintsAddButton() {
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        let centerY = addButton.centerYAnchor
+            .constraint(equalTo: barView.centerYAnchor)
+        let trailing = addButton.trailingAnchor
+            .constraint(equalTo: barView.trailingAnchor, constant: -10)
+
+        NSLayoutConstraint.activate(
+            [trailing, centerY])
     }
 
 }

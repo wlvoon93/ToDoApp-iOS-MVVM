@@ -9,11 +9,13 @@ import Foundation
 import RxSwift
 
 public class MainViewModel{
-
+    
     // MARK: - Properties
     public var view: Observable<MainView> { return viewSubject.asObservable() }
-    private let viewSubject = BehaviorSubject<MainView>(value: .todoList)
-    
+    private let viewSubject = BehaviorSubject<MainView>(value: .toDo)
+
     // MARK: - Methods
     public init() { }
+
+    
 }

@@ -11,10 +11,18 @@ import RxSwift
 
 public class ToDoListViewModel{
     // MARK: - Properties
+    public let addToDoInput = BehaviorSubject<Bool>(value: false)
+    
+    let goToAddToDoNavigator: GoToAddToDoNavigator
 
     // MARK: - Methods
-    public init() {
-        
+    public init(goToAddToDoNavigator: GoToAddToDoNavigator) {
+        self.goToAddToDoNavigator = goToAddToDoNavigator
+    }
+    
+    @objc
+    public func addToDo() {
+        self.goToAddToDoNavigator.navigateAddToDo()
     }
 
 }
