@@ -42,7 +42,10 @@ public class MainViewController: NiblessNavigationController {
         switch view {
         case .todoList:
             presentTodoList()
-
+        case .addToDo:
+            presentAddToDo()
+        case .showHistory:
+            presentShowHistory()
         }
     }
 
@@ -50,6 +53,13 @@ public class MainViewController: NiblessNavigationController {
         addFullScreen(childViewController: toDoListViewController)
     }
 
+    public func presentAddToDo(){
+        
+    }
+    
+    public func presentShowHistory(){
+        
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
