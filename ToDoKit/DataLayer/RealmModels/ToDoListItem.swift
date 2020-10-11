@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class ToDoListItem: Object {
+public class ToDoListItem: Object {
     @objc dynamic var item: String = ""
     @objc dynamic var date: Date = Date()
 }

@@ -9,4 +9,6 @@ import Foundation
 
 public protocol ToDoDataRepository {
 
+    func readTodoFromDB() -> [ToDoListItem]
+    func writeToDoToDB(date: Date, item: String)
 }

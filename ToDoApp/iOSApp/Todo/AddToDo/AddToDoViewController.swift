@@ -27,13 +27,22 @@ public class AddToDoViewController: NiblessViewController{
     }
     
     public override func loadView() {
-      self.view = AddToDoRootView(viewModel: viewModel)
+      self.view = AddToDoRootView(viewModel: viewModel, navigationItem: self.navigationItem)
 //      self.rootView = self.view as? ToDoListRootView
         
         
     }
     
     public override func viewDidAppear(_ animated: Bool) {
+
+        viewModel.dismissViewControllerInput
+        .distinctUntilChanged()
+        .subscribe(onNext: {dismissViewControllerInput in
+            
+            if dismissViewControllerInput == true{
+                self.navigationController?.popViewController(animated: true)
+            }
+        }).disposed(by: disposeBag)
     }
 }
 

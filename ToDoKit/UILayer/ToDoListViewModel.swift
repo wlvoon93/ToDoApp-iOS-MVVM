@@ -12,17 +12,27 @@ import RxSwift
 public class ToDoListViewModel{
     // MARK: - Properties
     public let addToDoInput = BehaviorSubject<Bool>(value: false)
+    public let toDoDataArray = BehaviorSubject<[ToDoListItem]?>(value: nil)
     
     let goToAddToDoNavigator: GoToAddToDoNavigator
+    let toDoDataRepository: ToDoDataRepository
 
     // MARK: - Methods
-    public init(goToAddToDoNavigator: GoToAddToDoNavigator) {
+    public init(toDoDataRepository:ToDoDataRepository, goToAddToDoNavigator: GoToAddToDoNavigator) {
         self.goToAddToDoNavigator = goToAddToDoNavigator
+        self.toDoDataRepository = toDoDataRepository
+        
+        toDoDataArray.onNext(self.toDoDataRepository.readTodoFromDB()) 
     }
     
     @objc
     public func addToDo() {
         self.goToAddToDoNavigator.navigateAddToDo()
+    }
+    
+    @objc
+    public func reloadTableData(){
+        toDoDataArray.onNext(self.toDoDataRepository.readTodoFromDB()) 
     }
 
 }

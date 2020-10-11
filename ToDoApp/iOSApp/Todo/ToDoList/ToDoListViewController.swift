@@ -8,34 +8,34 @@
 import Foundation
 import RxSwift
 
-public class ToDoListViewController: NiblessViewController{
-    
+public class ToDoListViewController: NiblessViewController {
+
     var viewModel: ToDoListViewModel
-    
+
     let toDoListViewModelFactory: ToDoListViewModelFactory
-    
+
     let disposeBag: DisposeBag
 
-    
+
     // MARK: - Methods
     init(viewModelFactory: ToDoListViewModelFactory) {
         self.toDoListViewModelFactory = viewModelFactory
         viewModel = toDoListViewModelFactory.makeToDoListViewModel()
         disposeBag = DisposeBag()
         super.init()
-        
-    }
-    
-    public override func loadView() {
-      self.view = ToDoListRootView(viewModel: viewModel)
-//      self.rootView = self.view as? ToDoListRootView
-        
-        
-    }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.parent?.navigationItem.title = "sdfsdf."
 
+    }
+
+    public override func loadView() {
+        self.view = ToDoListRootView(viewModel: viewModel, navigationItem: self.navigationItem)
+
+
+    }
+
+
+
+    public override func viewDidAppear(_ animated: Bool) {
+        self.viewModel.reloadTableData()
     }
 }
 

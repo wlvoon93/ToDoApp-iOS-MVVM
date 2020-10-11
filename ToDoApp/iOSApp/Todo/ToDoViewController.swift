@@ -17,9 +17,10 @@ class ToDoViewController: NiblessNavigationController {
 
     // Child View Controllers
     let toDoListViewController: ToDoListViewController
-    let addToDoViewController: AddToDoViewController
+//    let addToDoViewController: AddToDoViewController
 
     //factories
+    let makeAddToDoViewController: () -> AddToDoViewController
 
 
     var loggedInAtInit: Bool = false
@@ -27,11 +28,11 @@ class ToDoViewController: NiblessNavigationController {
     // MARK: - Methods
     init(viewModel: ToDoViewModel,
          toDoListViewController: ToDoListViewController,
-         addToDoViewController: AddToDoViewController) {
+         addToDoViewControllerFactory: @escaping () -> AddToDoViewController) {
         
         self.viewModel = viewModel
         self.toDoListViewController = toDoListViewController
-        self.addToDoViewController = addToDoViewController
+        self.makeAddToDoViewController = addToDoViewControllerFactory
 
         super.init()
 
@@ -84,11 +85,23 @@ class ToDoViewController: NiblessNavigationController {
     }
     
     func presentToDoList(){
+        let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.backgroundColor = UIColor.black
+        self.navigationBar.standardAppearance = navBarAppearance
+        self.navigationBar.scrollEdgeAppearance = navBarAppearance
+        self.navigationBar.prefersLargeTitles = true
+        toDoListViewController.title = "ToDo List"
+        
         self.pushViewController(toDoListViewController, animated: true)
     }
 
     func presentAddToDo(){
-        self.pushViewController(addToDoViewController, animated: true)
+        let viewController = makeAddToDoViewController()
+        viewController.title = "Add ToDo"
+        self.pushViewController(viewController, animated: true)
     }
 
     

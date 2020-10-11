@@ -16,9 +16,9 @@ public enum ToDoView {
     public func hidesNavigationBar() -> Bool {
         switch self {
         case .todoList:
-            return true
+            return false
         case .addToDo:
-            return true
+            return false
         case .showHistory:
             return true
         }

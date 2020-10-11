@@ -12,15 +12,26 @@ public class ToDoAppDependencyContainer {
 
     // Long-lived dependencies
     let sharedMainViewModel: MainViewModel
+    let sharedToDoDataRepository: ToDoDataRepository
 
     // MARK: - Methods
     public init() {
+        
+        func makeToDoDataRepository() -> ToDoDataRepository {
+          let dataStore = makeToDoDataStore()
+          return MyToDoDataRepository(dataStore: dataStore)
+        }
+        
+        func makeToDoDataStore() -> ToDoDataStore {
+          return MyToDoDataStore()
+        }
 
         func makeMainViewModel() -> MainViewModel {
             return MainViewModel()
         }
 
         self.sharedMainViewModel = makeMainViewModel()
+        self.sharedToDoDataRepository = makeToDoDataRepository()
     }
 
     // Main
