@@ -43,6 +43,16 @@ public class AddToDoViewController: NiblessViewController{
                 self.navigationController?.popViewController(animated: true)
             }
         }).disposed(by: disposeBag)
+        
+        viewModel.inputError.distinctUntilChanged()
+            .subscribe(onNext: {inputError in
+                
+                if inputError.count > 0{
+                    let alert = UIAlertController(title: "Error", message: inputError, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }).disposed(by: disposeBag)
     }
 }
 

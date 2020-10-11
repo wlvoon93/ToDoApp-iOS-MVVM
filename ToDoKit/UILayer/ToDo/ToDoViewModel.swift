@@ -10,7 +10,8 @@ import RxSwift
 
 public typealias ToDoNavigationAction = NavigationAction<ToDoView>
 
-public class ToDoViewModel: GoToAddToDoNavigator {
+public class ToDoViewModel: GoToAddToDoNavigator, GoToToDoDetailNavigator {
+    
 
     // MARK: - Properties
     public var view: Observable<ToDoNavigationAction> { return _view.asObservable() }
@@ -29,4 +30,9 @@ public class ToDoViewModel: GoToAddToDoNavigator {
     public func navigateAddToDo(){
         _view.onNext(.present(view: .addToDo))
     }
+    
+    public func navigateToDoDetail(toDoListItem: ToDoListItem) {
+        _view.onNext(.present(view: .toDoDetail(toDoListItem: toDoListItem)))
+    }
+    
 }

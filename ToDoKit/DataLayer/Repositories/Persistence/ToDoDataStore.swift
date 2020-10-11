@@ -11,4 +11,5 @@ public protocol ToDoDataStore {
     
     func readTodoFromDB() -> [ToDoListItem]
     func writeToDoToDB(date: Date, item: String)
+    func removeToDo(item:ToDoListItem?)
 }

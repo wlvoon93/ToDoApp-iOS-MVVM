@@ -15,12 +15,14 @@ public class ToDoListViewModel{
     public let toDoDataArray = BehaviorSubject<[ToDoListItem]?>(value: nil)
     
     let goToAddToDoNavigator: GoToAddToDoNavigator
+    let goToToDoDetailNavigator: GoToToDoDetailNavigator
     let toDoDataRepository: ToDoDataRepository
 
     // MARK: - Methods
-    public init(toDoDataRepository:ToDoDataRepository, goToAddToDoNavigator: GoToAddToDoNavigator) {
+    public init(toDoDataRepository:ToDoDataRepository, goToAddToDoNavigator: GoToAddToDoNavigator, goToToDoDetailNavigator: GoToToDoDetailNavigator) {
         self.goToAddToDoNavigator = goToAddToDoNavigator
         self.toDoDataRepository = toDoDataRepository
+        self.goToToDoDetailNavigator = goToToDoDetailNavigator
         
         toDoDataArray.onNext(self.toDoDataRepository.readTodoFromDB()) 
     }

@@ -31,6 +31,7 @@ public class AddToDoViewModel{
         
         if toDoText.count < 1 {
             inputError.onNext("Please input ToDo.")
+            inputError.onNext("")
         }else{
             self.toDoDataRepository.writeToDoToDB(date: date, item: toDoText)
             self.dismissViewControllerInput.onNext(true)

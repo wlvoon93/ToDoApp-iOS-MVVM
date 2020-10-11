@@ -36,10 +36,14 @@ public class ToDoDependencyContainer {
         let addToDoViewControllerFactory = {
             return self.makeAddToDoViewController()
         }
+        let toDoDetailViewControllerFactory = {(toDoItem: ToDoListItem) in
+            return self.makeToDoDetailViewController(toDoItem: toDoItem)
+        }
 
         return ToDoViewController(viewModel: sharedToDoViewModel,
             toDoListViewController: toDoListViewController,
-            addToDoViewControllerFactory: addToDoViewControllerFactory)
+            addToDoViewControllerFactory: addToDoViewControllerFactory,
+            toDoDetailViewControllerFactory: toDoDetailViewControllerFactory)
     }
 
     // to do list
@@ -49,7 +53,7 @@ public class ToDoDependencyContainer {
     }
 
     func makeToDoListViewModel() -> ToDoListViewModel {
-        return ToDoListViewModel(toDoDataRepository: self.sharedToDoDataRepository, goToAddToDoNavigator: self.sharedToDoViewModel)
+        return ToDoListViewModel(toDoDataRepository: self.sharedToDoDataRepository, goToAddToDoNavigator: self.sharedToDoViewModel,goToToDoDetailNavigator: self.sharedToDoViewModel)
     }
 
 
@@ -62,8 +66,20 @@ public class ToDoDependencyContainer {
     func makeAddToDoViewModel() -> AddToDoViewModel {
         return AddToDoViewModel(toDoDataRepository: self.sharedToDoDataRepository)
     }
+    
+    // to do detail
+    public func makeToDoDetailViewController(toDoItem: ToDoListItem) ->
+    ToDoDetailViewController {
+        return ToDoDetailViewController(viewModelFactory: self, toDoItem:toDoItem)
+    }
+
+    func makeToDoDetailViewModel(toDoItem: ToDoListItem) -> ToDoDetailViewModel {
+        return ToDoDetailViewModel(toDoDataRepository: self.sharedToDoDataRepository, toDoItem: toDoItem)
+    }
+    
+    
 }
 
-extension ToDoDependencyContainer: ToDoListViewModelFactory, AddToDoViewModelFactory {
+extension ToDoDependencyContainer: ToDoListViewModelFactory, AddToDoViewModelFactory, ToDoDetailViewModelFactory {
 
 }

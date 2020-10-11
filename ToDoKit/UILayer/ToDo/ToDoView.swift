@@ -11,7 +11,7 @@ public enum ToDoView {
 
     case todoList // show todo list
     case addToDo // to enter a new item to todo list
-    case showHistory // to show previously entered to do list item
+    case toDoDetail(toDoListItem: ToDoListItem) // to show ToDo detail
 
     public func hidesNavigationBar() -> Bool {
         switch self {
@@ -19,8 +19,8 @@ public enum ToDoView {
             return false
         case .addToDo:
             return false
-        case .showHistory:
-            return true
+        case .toDoDetail:
+            return false
         }
     }
 
@@ -34,11 +34,11 @@ extension ToDoView: Equatable {
             return true
         case (.addToDo, .addToDo):
             return true
-        case (.showHistory, .showHistory):
+        case (.toDoDetail, .toDoDetail):
             return true
         case (.todoList, _),
              (.addToDo, _),
-             (.showHistory, _):
+             (.toDoDetail, _):
             return false
         }
     }

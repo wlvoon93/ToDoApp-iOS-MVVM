@@ -34,6 +34,10 @@
 		66374BC8252E158200308005 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66374BC7252E158200308005 /* ToDoListViewModel.swift */; };
 		66374BCD252E204A00308005 /* ViewControllerContainment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66374BCC252E204A00308005 /* ViewControllerContainment.swift */; };
 		66C1B91D25321926009A0809 /* GoToAddToDoNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C1B91C25321926009A0809 /* GoToAddToDoNavigator.swift */; };
+		66C1B92A253341F0009A0809 /* ToDoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C1B929253341F0009A0809 /* ToDoDetailViewController.swift */; };
+		66C1B92F25334201009A0809 /* ToDoDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C1B92E25334201009A0809 /* ToDoDetailRootView.swift */; };
+		66C1B93425334254009A0809 /* ToDoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C1B93325334254009A0809 /* ToDoDetailViewModel.swift */; };
+		66C1B93925334F56009A0809 /* GoToToDoDetailNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C1B93825334F56009A0809 /* GoToToDoDetailNavigator.swift */; };
 		66DD22492531C4D000FE0C8B /* ToDoListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD22482531C4D000FE0C8B /* ToDoListItem.swift */; };
 		66DD22552531DD5500FE0C8B /* NavigationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD22542531DD5500FE0C8B /* NavigationAction.swift */; };
 		66DD225E2531E42D00FE0C8B /* AddToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD225D2531E42D00FE0C8B /* AddToDoViewController.swift */; };
@@ -100,6 +104,10 @@
 		66374BC7252E158200308005 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
 		66374BCC252E204A00308005 /* ViewControllerContainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainment.swift; sourceTree = "<group>"; };
 		66C1B91C25321926009A0809 /* GoToAddToDoNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToAddToDoNavigator.swift; sourceTree = "<group>"; };
+		66C1B929253341F0009A0809 /* ToDoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewController.swift; sourceTree = "<group>"; };
+		66C1B92E25334201009A0809 /* ToDoDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailRootView.swift; sourceTree = "<group>"; };
+		66C1B93325334254009A0809 /* ToDoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewModel.swift; sourceTree = "<group>"; };
+		66C1B93825334F56009A0809 /* GoToToDoDetailNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoToToDoDetailNavigator.swift; sourceTree = "<group>"; };
 		66DD22482531C4D000FE0C8B /* ToDoListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListItem.swift; sourceTree = "<group>"; };
 		66DD22542531DD5500FE0C8B /* NavigationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAction.swift; sourceTree = "<group>"; };
 		66DD225D2531E42D00FE0C8B /* AddToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewController.swift; sourceTree = "<group>"; };
@@ -274,7 +282,6 @@
 				66374B7A252E0D9D00308005 /* MainViewModel.swift */,
 				66374B82252E0DAD00308005 /* MainView.swift */,
 				66DD227B2532078E00FE0C8B /* ToDo */,
-				66374BC7252E158200308005 /* ToDoListViewModel.swift */,
 				66DD22532531DD0900FE0C8B /* Reusable */,
 			);
 			path = UILayer;
@@ -333,6 +340,24 @@
 			path = ToDoList;
 			sourceTree = "<group>";
 		};
+		66C1B928253341D5009A0809 /* ToDoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				66C1B929253341F0009A0809 /* ToDoDetailViewController.swift */,
+				66C1B92E25334201009A0809 /* ToDoDetailRootView.swift */,
+			);
+			path = ToDoDetail;
+			sourceTree = "<group>";
+		};
+		66C1B940253356CD009A0809 /* Navigators */ = {
+			isa = PBXGroup;
+			children = (
+				66C1B91C25321926009A0809 /* GoToAddToDoNavigator.swift */,
+				66C1B93825334F56009A0809 /* GoToToDoDetailNavigator.swift */,
+			);
+			path = Navigators;
+			sourceTree = "<group>";
+		};
 		66DD22472531C4B300FE0C8B /* RealmModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +390,7 @@
 				66DD22702532072200FE0C8B /* ToDoViewController.swift */,
 				66374BB9252E14C700308005 /* ToDoList */,
 				66DD225C2531E41700FE0C8B /* AddToDo */,
+				66C1B928253341D5009A0809 /* ToDoDetail */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -372,10 +398,12 @@
 		66DD227B2532078E00FE0C8B /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				66C1B91C25321926009A0809 /* GoToAddToDoNavigator.swift */,
 				66DD2281253207B500FE0C8B /* ToDoViewModel.swift */,
 				66DD227C253207AA00FE0C8B /* ToDoView.swift */,
+				66C1B940253356CD009A0809 /* Navigators */,
 				66DD22892532100400FE0C8B /* AddToDoViewModel.swift */,
+				66C1B93325334254009A0809 /* ToDoDetailViewModel.swift */,
+				66374BC7252E158200308005 /* ToDoListViewModel.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -642,17 +670,21 @@
 				66DD2282253207B500FE0C8B /* ToDoViewModel.swift in Sources */,
 				66374B29252DFE4E00308005 /* AppDelegate.swift in Sources */,
 				66C1B91D25321926009A0809 /* GoToAddToDoNavigator.swift in Sources */,
+				66C1B93425334254009A0809 /* ToDoDetailViewModel.swift in Sources */,
 				66374B2B252DFE4E00308005 /* SceneDelegate.swift in Sources */,
 				66DD22632531E43C00FE0C8B /* AddToDoRootView.swift in Sources */,
 				66374BB3252E13A800308005 /* NiblessNavigationController.swift in Sources */,
 				66374B6C252E0CF700308005 /* ToDoDataRepository.swift in Sources */,
 				66374BCD252E204A00308005 /* ViewControllerContainment.swift in Sources */,
 				66374B33252DFE4E00308005 /* ToDoApp.xcdatamodeld in Sources */,
+				66C1B92A253341F0009A0809 /* ToDoDetailViewController.swift in Sources */,
 				66DD228A2532100400FE0C8B /* AddToDoViewModel.swift in Sources */,
 				66374B61252E004500308005 /* ToDoAppDependencyContainer.swift in Sources */,
+				66C1B93925334F56009A0809 /* GoToToDoDetailNavigator.swift in Sources */,
 				66DD22712532072200FE0C8B /* ToDoViewController.swift in Sources */,
 				66374BB4252E13A800308005 /* NiblessView.swift in Sources */,
 				66DD22692532070700FE0C8B /* ToDoDependencyContainer.swift in Sources */,
+				66C1B92F25334201009A0809 /* ToDoDetailRootView.swift in Sources */,
 				66374B7B252E0D9D00308005 /* MainViewModel.swift in Sources */,
 				66374BC3252E14FB00308005 /* ToDoListRootView.swift in Sources */,
 				66DD227D253207AA00FE0C8B /* ToDoView.swift in Sources */,

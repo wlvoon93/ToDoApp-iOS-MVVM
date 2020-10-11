@@ -21,32 +21,35 @@ class ToDoViewController: NiblessNavigationController {
 
     //factories
     let makeAddToDoViewController: () -> AddToDoViewController
+    let makeToDoDetailViewController: (ToDoListItem) -> ToDoDetailViewController
 
 
     var loggedInAtInit: Bool = false
 
     // MARK: - Methods
     init(viewModel: ToDoViewModel,
-         toDoListViewController: ToDoListViewController,
-         addToDoViewControllerFactory: @escaping () -> AddToDoViewController) {
-        
+        toDoListViewController: ToDoListViewController,
+        addToDoViewControllerFactory: @escaping () -> AddToDoViewController,
+        toDoDetailViewControllerFactory: @escaping (ToDoListItem) -> ToDoDetailViewController) {
+
         self.viewModel = viewModel
         self.toDoListViewController = toDoListViewController
         self.makeAddToDoViewController = addToDoViewControllerFactory
+        self.makeToDoDetailViewController = toDoDetailViewControllerFactory
 
         super.init()
 
         self.delegate = self
         loadUserSession()
     }
-    
-    private func loadUserSession(){
+
+    private func loadUserSession() {
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         subscribe(to: viewModel.view)
-        
+
     }
 
     func subscribe(to observable: Observable<ToDoNavigationAction>) {
@@ -78,33 +81,39 @@ class ToDoViewController: NiblessNavigationController {
         case .addToDo:
             print("add to do")
             presentAddToDo()
-        case .showHistory:
+        case .toDoDetail(let toDoListItem):
             print("show history")
-
+            presentToDoDetail(toDoListItem: toDoListItem)
         }
     }
-    
-    func presentToDoList(){
+
+    func presentToDoList() {
         let navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.backgroundColor = UIColor.black
         self.navigationBar.standardAppearance = navBarAppearance
         self.navigationBar.scrollEdgeAppearance = navBarAppearance
         self.navigationBar.prefersLargeTitles = true
         toDoListViewController.title = "ToDo List"
-        
+
         self.pushViewController(toDoListViewController, animated: true)
     }
 
-    func presentAddToDo(){
+    func presentAddToDo() {
         let viewController = makeAddToDoViewController()
         viewController.title = "Add ToDo"
         self.pushViewController(viewController, animated: true)
     }
 
-    
+    func presentToDoDetail(toDoListItem: ToDoListItem) {
+        let viewController = makeToDoDetailViewController(toDoListItem)
+        viewController.title = "ToDo Detail"
+        self.pushViewController(viewController, animated: true)
+    }
+
+
 }
 // MARK: - Navigation Bar Presentation
 extension ToDoViewController {
@@ -167,8 +176,10 @@ extension ToDoViewController {
             return .todoList
         case is AddToDoViewController:
             return .addToDo
+        case is ToDoDetailViewController:
+            return .toDoDetail(toDoListItem: ToDoListItem())
 
-        default:
+     default:
             assertionFailure("Encountered unexpected child view controller type in DiscoverJobsViewController")
             return nil
         }

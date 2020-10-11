@@ -25,4 +25,8 @@ public class MyToDoDataRepository: ToDoDataRepository {
     public func writeToDoToDB(date: Date, item: String) {
         return dataStore.writeToDoToDB(date: date, item: item)
     }
+    
+    public func removeToDo(item:ToDoListItem?){
+        return dataStore.removeToDo(item: item)
+    }
 }

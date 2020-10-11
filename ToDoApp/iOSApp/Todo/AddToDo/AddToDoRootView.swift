@@ -19,9 +19,6 @@ class AddToDoRootView: NiblessView {
     
     private var data = [ToDoListItem]()
     
-    
-//    = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-    
     let toDoTextField: UITextField = {
 
         let field = StyledTextField()
@@ -33,17 +30,11 @@ class AddToDoRootView: NiblessView {
     let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.timeZone = NSTimeZone.local
-//        picker.locale
         picker.backgroundColor = UIColor.white
         picker.datePickerMode = .dateAndTime
-//        picker.preferredDatePickerStyle = .wheels
         
         return picker
     }()
-    
-    func didTapSaveButton(){
-        
-    }
 
     let contentView: UIView = {
         let view = UIView()
@@ -55,11 +46,8 @@ class AddToDoRootView: NiblessView {
     let submitButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Submit", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-//        button.setTitleColor(.white, for: .normal)
-        
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.clipsToBounds = true
-//        button.layer.cornerRadius = 15
         return button
 
     }()
@@ -73,7 +61,6 @@ class AddToDoRootView: NiblessView {
         super.init(frame: frame)
 
         bindTextFieldsToViewModel()
-        bindViewModelToViews()
 
         toDoTextField.becomeFirstResponder()
         toDoTextField.delegate = self
@@ -185,20 +172,7 @@ extension AddToDoRootView {
     }
 }
 
-
-
-// MARK: - Dynamic behavior
-extension AddToDoRootView {
-
-
-    func bindViewModelToViews() {
-
-    }
-
-
-
-}
-
+// text field delegate
 extension AddToDoRootView: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

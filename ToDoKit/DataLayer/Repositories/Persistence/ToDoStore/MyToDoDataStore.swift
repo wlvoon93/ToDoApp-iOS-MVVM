@@ -40,4 +40,18 @@ public class MyToDoDataStore: ToDoDataStore{
         
         try! realm.commitWrite()
     }
+    
+    public func removeToDo(item:ToDoListItem?){
+        guard let theItem = item else{
+            return
+        }
+        
+        let realm = try! Realm()
+        realm.beginWrite()
+        
+        realm.delete(theItem)
+        
+        try! realm.commitWrite()
+    
+    }
 }
